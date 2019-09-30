@@ -11,12 +11,18 @@ WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
 # images list
+
+
+# welcome image
+# the welcome image
+WELCOME_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'message.png')))
+
 # the bird image
-
-
 BIRD_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird'+str(i)+'.png'))) for i in range(1,4)]
 BLUE_BIRD_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bluebird'+str(i)+'.png'))) for i in range(1,4)]
 RED_BIRD_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'redbird'+str(i)+'.png'))) for i in range(1,4)]
+
+
 # the pipe image
 
 PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
@@ -248,7 +254,7 @@ class Base:
 
 
 
-def draw_window(win, bird, pipes, base, score):
+def draw_window(win, bird, pipes, base, score, end = False):
     # draw the window
     win.blit(BG_IMG, (0,0))
 
@@ -262,11 +268,9 @@ def draw_window(win, bird, pipes, base, score):
     text = STAT_FONT.render('Score:' + str(score), 1, (255,255, 255))
     win.blit(text, (WIN_WIDTH - 10 - text.get_width(), 10))
 
-    # gen_text = STAT_FONT.render('Gen:' + str(gen), 1, (100,100, 100))
-    # win.blit(gen_text, (10, 10))
+    if end:
+        win.blit(END_IMG,(100,100))
 
-    # live_text = STAT_FONT.render('Alive:' + str(len(birds)), 1, (100, 100, 100))
-    # win.blit(live_text, (10, 60))
 
     pygame.display.update()
 
@@ -281,14 +285,35 @@ def main():
     bird = Bird(230, 350)
 
     win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT), pygame.FULLSCREEN)
-    
-
-    # set the frame rate
     clock = pygame.time.Clock()
 
+    start = True
+
+    # welcome window
+    while start:
+        clock.tick(30)
+        win.blit(BG_IMG, (0,0))
+        win.blit(WELCOME_IMG, (60,100))
+        pygame.display.update()
+
+        # click left or press space to start the game
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    start = False
+
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    start = False              
+    
     score = 0
 
     run = True
+    end = False
 
     while run:
         clock.tick(30)
@@ -327,14 +352,9 @@ def main():
             
             # if collide
             if pipe.collide(bird):
+   
                 run = False
-
-
-                pygame.quit()
-                quit()
-                # hits a pipe, remove 1 from the fitness score
-
-                    
+                main()
 
                 # check if we have passed the pipe, generate a new if true
             if not pipe.passed and pipe.x < bird.x:
@@ -361,12 +381,15 @@ def main():
         # Check if the bird hits the ground or above the window
         
         if bird.y + bird.img.get_height() > 730 or bird.y < 0 :
+
             run = False
-            pass
+            main()
                 
 
         base.move()
         draw_window(win, bird, pipes, base, score)
+
+
 
 
 if __name__ == '__main__':
