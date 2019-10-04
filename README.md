@@ -8,12 +8,12 @@ can play the game manually or train an AI to play the game.
 
 - Flappy Bird game:
 
-   <center>Start game</center>  
+
    <img src="imgs/bird_m.png" alt="drawing"/, width = 250px, height = 400px>
 
 
 - AI Flappy Bird with NEAT algorithm:
-   <center>Start game</center>  
+ 
    <img src="imgs/bird_a.gif" alt="drawing"/, width = 250px, height = 400px>
 
 
