@@ -20,14 +20,14 @@ can play the game manually or train an AI to play the game.
 
 ## Usage
 
-* To play the game manually:
- *  Run `python bird_manual.py`
- *  Click or press <kbd>Space</kbd> to start the game.
- *  Press <kbd>Space</kbd>or<kbd>UP</kbd> to control the bird.
- *  Press <kbd>Escape</kbd> to exit the game.
+- To play the game manually:
+  -  Run `python bird_manual.py`
+  -  Click or press <kbd>Space</kbd> to start the game.
+  -  Press <kbd>Space</kbd>or<kbd>UP</kbd> to control the bird.
+  -  Press <kbd>Escape</kbd> to exit the game.
 
-* To train an AI to play the game:
- * Run `python bird_ai.py` 
+- To train an AI to play the game:
+  - Run `python bird_ai.py` 
     
 ## Dependencies
 - pygame
