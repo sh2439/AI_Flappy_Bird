@@ -284,7 +284,7 @@ def main():
     pipes = [Pipe(600)]
     bird = Bird(230, 350)
 
-    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT), pygame.FULLSCREEN)
+    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
 
     start = True
